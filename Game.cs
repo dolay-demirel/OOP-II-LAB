@@ -25,6 +25,7 @@ namespace Prelab_1
         private void btn_settings_Click(object sender, EventArgs e)
         {
             new Settings().Show();
+
             
         }
     }
