@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using Prelab_1.SQLVariables;
+using Prelab_1;
 
 namespace Prelab_1
 {
@@ -45,15 +48,37 @@ namespace Prelab_1
 
         private void btn_login_Click(object sender, EventArgs e)
         {
-            if (txtbox_password.Text == "admin" && txtbox_username.Text == "admin" || txtbox_password.Text == "user" && txtbox_username.Text == "user")
+
+            SqlCommand loginCommand = new SqlCommand("Select * from User_Table where Username=@pusername and Password=@ppassword",SQLOperations.connection);
+
+            SQLOperations.CheckConnection(SQLOperations.connection);
+
+            string hashedPassword = Sha256Converter.ComputeSha256Hash(txtbox_password.Text);
+
+            loginCommand.Parameters.AddWithValue("@pusername", txtbox_username.Text);
+            loginCommand.Parameters.AddWithValue("@ppassword", hashedPassword);
+
+            SqlDataAdapter da = new SqlDataAdapter(loginCommand);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            if(dt.Rows.Count > 0)
             {
+                Variables.loggedUsername = dt.Rows[0]["Username"].ToString();
+                Variables.loggedPassword = dt.Rows[0]["Password"].ToString();
+                Variables.loggedName = dt.Rows[0]["Name-Surname"].ToString();
+                Variables.loggedPhone = dt.Rows[0]["Phone Number"].ToString();
+                Variables.loggedAddress = dt.Rows[0]["Address"].ToString();
+                Variables.loggedCity = dt.Rows[0]["City"].ToString();
+                Variables.loggedCountry = dt.Rows[0]["Country"].ToString();
+                Variables.loggedEmail = dt.Rows[0]["E-mail"].ToString();
+                Variables.loggedID = Convert.ToInt32(dt.Rows[0]["UserID"]);
+
+
                 new Game().Show();
                 this.Hide();
-            }
-
-            else if (txtbox_username.Text == "" && txtbox_password.Text == "")
-            {
-                MessageBox.Show("Username or Password fields cannot be empty.");
             }
 
             else
@@ -63,6 +88,7 @@ namespace Prelab_1
                 txtbox_password.Clear();
                 txtbox_username.Focus();
             }
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -99,6 +125,11 @@ namespace Prelab_1
             {
                 txtbox_password.PasswordChar = '*';
             }
+        }
+
+        private void btn_register_Click(object sender, EventArgs e)
+        {
+            new Register().Show();
         }
     }
 }

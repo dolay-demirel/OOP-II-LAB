@@ -37,6 +37,7 @@ namespace Prelab_1
             this.btn_login = new System.Windows.Forms.Button();
             this.btn_cancel = new System.Windows.Forms.Button();
             this.checkbox_showpass = new System.Windows.Forms.CheckBox();
+            this.btn_register = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_title
@@ -125,11 +126,22 @@ namespace Prelab_1
             this.checkbox_showpass.UseVisualStyleBackColor = true;
             this.checkbox_showpass.CheckedChanged += new System.EventHandler(this.checkbox_showpass_CheckedChanged);
             // 
+            // btn_register
+            // 
+            this.btn_register.Location = new System.Drawing.Point(183, 148);
+            this.btn_register.Name = "btn_register";
+            this.btn_register.Size = new System.Drawing.Size(100, 31);
+            this.btn_register.TabIndex = 8;
+            this.btn_register.Text = "Register";
+            this.btn_register.UseVisualStyleBackColor = true;
+            this.btn_register.Click += new System.EventHandler(this.btn_register_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(465, 198);
+            this.Controls.Add(this.btn_register);
             this.Controls.Add(this.checkbox_showpass);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_login);
@@ -160,6 +172,7 @@ namespace Prelab_1
         private System.Windows.Forms.Button btn_login;
         private System.Windows.Forms.Button btn_cancel;
         private System.Windows.Forms.CheckBox checkbox_showpass;
+        private System.Windows.Forms.Button btn_register;
     }
 }
 
