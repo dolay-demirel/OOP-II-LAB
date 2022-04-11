@@ -28,5 +28,11 @@ namespace Prelab_1
 
             
         }
+
+        private void btn_about_Click(object sender, EventArgs e)
+        {
+            new About().ShowDialog();
+          
+        }
     }
 }
